@@ -4,8 +4,10 @@ Run with:  uvicorn app.main:app --reload
 """
 
 import contextlib
+import os
 
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 
 from app.database import database
 from app.routers import categories, tasks
@@ -37,3 +39,12 @@ app.include_router(categories.router)
 @app.get("/health", tags=["meta"])
 def health() -> dict:
     return {"status": "ok"}
+
+
+# Serve the built React UI (ui/dist) if present. This mount is added last,
+# so the API routes above always take precedence. See ui/README.md.
+_UI_DIST = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "ui", "dist"
+)
+if os.path.isdir(_UI_DIST):
+    app.mount("/", StaticFiles(directory=_UI_DIST, html=True), name="ui")
