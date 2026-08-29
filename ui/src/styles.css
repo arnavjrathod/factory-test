@@ -1,14 +1,21 @@
 :root {
   --bg: #f4f5f7;
+  --bg-gradient: linear-gradient(135deg, #f4f5f7 0%, #eef1f8 100%);
   --surface: #ffffff;
+  --surface-gradient: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
   --border: #e2e4e9;
   --text: #1f2430;
   --text-dim: #6b7280;
   --accent: #4f6ef7;
   --accent-dark: #3d57d6;
+  --accent-gradient: linear-gradient(135deg, #667eea 0%, #4f6ef7 50%, #3d57d6 100%);
+  --accent-hover: linear-gradient(135deg, #5a72ed 0%, #435fd8 50%, #334cb5 100%);
   --danger: #e5484d;
-  --radius: 8px;
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
+  --danger-gradient: linear-gradient(135deg, #ef5350 0%, #c53035 100%);
+  --radius: 12px;
+  --shadow: 0 2px 6px rgba(31, 36, 48, 0.08);
+  --shadow-hover: 0 6px 16px rgba(31, 36, 48, 0.12);
+  --transition: 150ms ease;
 }
 
 * {
@@ -20,41 +27,59 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
   background: var(--bg);
+  background-image: var(--bg-gradient);
+  background-attachment: fixed;
   color: var(--text);
   font-size: 15px;
   line-height: 1.5;
+  min-height: 100vh;
 }
 
 .container {
-  max-width: 880px;
+  max-width: 920px;
   margin: 0 auto;
-  padding: 24px 16px 64px;
+  padding: 32px 20px 80px;
 }
 
 header.app-header {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
+  padding: 18px 22px;
+  background: var(--surface);
+  background-image: var(--accent-gradient);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  color: #fff;
 }
 
 header.app-header h1 {
-  font-size: 24px;
+  font-size: 26px;
   margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 header.app-header .health {
-  font-size: 12px;
-  color: var(--text-dim);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
 }
 
 .card {
   background: var(--surface);
+  background-image: var(--surface-gradient);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 16px;
-  margin-bottom: 16px;
+  padding: 18px;
+  margin-bottom: 18px;
+  transition: box-shadow var(--transition);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-hover);
 }
 
 /* ---- Forms ---- */
@@ -62,26 +87,32 @@ header.app-header .health {
 form.task-form {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
 }
 
 input,
 select,
 textarea {
   font: inherit;
-  padding: 8px 10px;
+  padding: 10px 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface);
   color: var(--text);
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-  outline: 2px solid var(--accent);
-  outline-offset: -1px;
+  outline: none;
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(79, 110, 247, 0.18);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #a0a7b4;
 }
 
 input.grow {
@@ -91,41 +122,59 @@ input.grow {
 
 button {
   font: inherit;
-  padding: 8px 14px;
+  padding: 10px 16px;
   border: none;
   border-radius: var(--radius);
-  background: var(--accent);
+  background: var(--accent-gradient);
   color: #fff;
   cursor: pointer;
+  font-weight: 500;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
 }
 
 button:hover {
-  background: var(--accent-dark);
+  background: var(--accent-hover);
+  box-shadow: 0 4px 12px rgba(79, 110, 247, 0.28);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 button.secondary {
-  background: var(--bg);
+  background: var(--surface);
   color: var(--text);
   border: 1px solid var(--border);
 }
 
 button.secondary:hover {
-  background: var(--border);
+  background: var(--bg);
+  box-shadow: var(--shadow-hover);
 }
 
 button.ghost {
   background: transparent;
   color: var(--text-dim);
-  padding: 4px 8px;
+  padding: 6px 10px;
 }
 
 button.ghost:hover {
   background: var(--bg);
   color: var(--text);
+  box-shadow: none;
+  transform: none;
 }
 
 button.danger:hover {
-  background: #c53035;
+  background: var(--danger-gradient);
   color: #fff;
 }
 
@@ -134,7 +183,7 @@ button.danger:hover {
 .filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px;
   align-items: center;
 }
 
@@ -144,10 +193,11 @@ button.danger:hover {
   display: flex;
   align-items: center;
   gap: 6px;
+  font-weight: 500;
 }
 
 .filters select {
-  padding: 6px 8px;
+  padding: 8px 10px;
   font-size: 13px;
 }
 
@@ -158,6 +208,7 @@ button.danger:hover {
 .result-count {
   font-size: 13px;
   color: var(--text-dim);
+  font-weight: 500;
 }
 
 /* ---- Task list ---- */
@@ -171,18 +222,26 @@ ul.task-list {
 li.task {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  padding: 12px 14px;
+  gap: 14px;
+  padding: 14px 16px;
   background: var(--surface);
+  background-image: var(--surface-gradient);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow);
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+li.task:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
 }
 
 li.task .check {
   margin-top: 4px;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   accent-color: var(--accent);
   cursor: pointer;
   flex-shrink: 0;
@@ -205,15 +264,15 @@ li.task.done .title {
 li.task .desc {
   font-size: 13px;
   color: var(--text-dim);
-  margin-top: 2px;
+  margin-top: 4px;
   white-space: pre-wrap;
 }
 
 li.task .meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 6px;
+  gap: 8px;
+  margin-top: 8px;
   font-size: 12px;
 }
 
@@ -227,7 +286,7 @@ li.task .actions {
 
 .badge {
   display: inline-block;
-  padding: 1px 8px;
+  padding: 2px 10px;
   border-radius: 999px;
   font-size: 11px;
   font-weight: 600;
@@ -238,19 +297,19 @@ li.task .actions {
 }
 
 .badge.status-in_progress {
-  background: #fff4e0;
+  background: linear-gradient(135deg, #fff4e0 0%, #ffecd2 100%);
   border-color: #f5c26b;
   color: #925b00;
 }
 
 .badge.status-done {
-  background: #e3f5e8;
+  background: linear-gradient(135deg, #e3f5e8 0%, #d4edda 100%);
   border-color: #7ac78f;
   color: #1c6b30;
 }
 
 .badge.priority-high {
-  background: #fde8e8;
+  background: linear-gradient(135deg, #fde8e8 0%, #ffd6d6 100%);
   border-color: #f19a9a;
   color: #a61b1b;
 }
@@ -260,7 +319,7 @@ li.task .actions {
 }
 
 .badge.due.overdue {
-  background: #fde8e8;
+  background: linear-gradient(135deg, #fde8e8 0%, #ffd6d6 100%);
   border-color: #f19a9a;
   color: #a61b1b;
 }
@@ -270,49 +329,54 @@ li.task .actions {
 .empty {
   text-align: center;
   color: var(--text-dim);
-  padding: 32px 0;
+  padding: 40px 0;
 }
 
 .error {
-  background: #fde8e8;
+  background: linear-gradient(135deg, #fde8e8 0%, #ffd6d6 100%);
   border: 1px solid #f19a9a;
   color: #a61b1b;
   border-radius: var(--radius);
-  padding: 10px 14px;
-  margin-bottom: 16px;
+  padding: 12px 16px;
+  margin-bottom: 18px;
   font-size: 14px;
+  box-shadow: var(--shadow);
 }
 
 /* ---- Pagination ---- */
 
 .pagination {
   display: flex;
-  gap: 8px;
+  gap: 12px;
   align-items: center;
   justify-content: center;
-  margin-top: 16px;
+  margin-top: 20px;
   font-size: 13px;
   color: var(--text-dim);
+  font-weight: 500;
 }
 
 .pagination button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 /* ---- Categories ---- */
 
 .categories h2 {
-  font-size: 14px;
+  font-size: 13px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   color: var(--text-dim);
-  margin: 0 0 10px;
+  margin: 0 0 12px;
+  font-weight: 700;
 }
 
 .categories ul {
   list-style: none;
-  margin: 0 0 10px;
+  margin: 0 0 12px;
   padding: 0;
 }
 
@@ -321,11 +385,18 @@ li.task .actions {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 4px 0;
+  padding: 6px 0;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition);
+}
+
+.categories li:not(:last-child) {
+  border-bottom-color: var(--border);
 }
 
 .categories li .name {
   font-size: 14px;
+  font-weight: 500;
 }
 
 .categories li .count {
@@ -336,7 +407,7 @@ li.task .actions {
 
 .categories form {
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
 .categories form input {
