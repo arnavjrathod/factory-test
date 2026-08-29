@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# SQLite databases
+*.db
+
+# Caches
+.pytest_cache/
+
+# Agent harness files (managed outside the repo)
+.warren/
+.pi/
+.gitconfig.burrow

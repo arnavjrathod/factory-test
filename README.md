@@ -6,10 +6,15 @@ filtering/sorting, pagination and OpenAPI docs.
 
 ## Quick start
 
+Requires [uv](https://docs.astral.sh/uv/) (installs Python deps into a local
+`.venv` automatically — no global installs):
+
 ```bash
-make install          # install dependencies
+make install          # or: uv sync (creates .venv from uv.lock)
 make run              # start server on http://localhost:8000
 ```
+
+Or run commands directly with `uv run` (e.g. `uv run uvicorn app.main:app --port 8000`).
 
 - Interactive docs: http://localhost:8000/docs
 - Health check: `GET /health`
@@ -57,3 +62,7 @@ Errors always return structured JSON: `{ "detail": "..." }`.
 ```bash
 make test   # or: make gate (adds -W error)
 ```
+
+Dependencies are managed with [uv](https://docs.astral.sh/uv/): runtime deps in
+`pyproject.toml` (`[project.dependencies]`), dev deps in the `[dependency-groups].dev`
+group, pinned versions in the committed `uv.lock` for reproducible installs.
