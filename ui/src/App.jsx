@@ -314,7 +314,7 @@ export default function App() {
   }, [tasks]);
 
   return (
-    <div className="container">
+    <div className="container code-editor">
       <header className="app-header">
         <h1>To-Do</h1>
         <span className="health">
@@ -470,6 +470,12 @@ export default function App() {
           </button>
         </div>
       )}
+
+      <footer className="status-bar">
+        <span className="status-item">main</span>
+        <span className="status-item">{total} task{total === 1 ? "" : "s"}</span>
+        <span className="status-item">Ln {page}, Col 1</span>
+      </footer>
     </div>
   );
 }
