@@ -314,8 +314,8 @@ export default function App() {
   }, [tasks]);
 
   return (
-    <div className="container">
-      <header className="app-header">
+    <div className="container code-editor">
+      <header className="app-header title-bar">
         <h1>To-Do</h1>
         <span className="health">
           {total} task{total === 1 ? "" : "s"}
@@ -393,7 +393,7 @@ export default function App() {
         </span>
       </div>
 
-      <div className="card categories">
+      <section className="card categories editor-panel">
         <h2>Categories</h2>
         {categories.length === 0 ? (
           <div className="empty" style={{ padding: "8px 0" }}>
@@ -428,8 +428,9 @@ export default function App() {
             Add
           </button>
         </form>
-      </div>
+      </section>
 
+      <main className="editor-main">
       {tasks.length === 0 ? (
         <div className="empty card">
           Nothing here. Add your first task above ☝️
@@ -450,7 +451,7 @@ export default function App() {
       )}
 
       {totalPages > 1 && (
-        <div className="pagination">
+        <footer className="pagination editor-footer">
           <button
             className="secondary"
             disabled={page <= 1}
@@ -468,8 +469,9 @@ export default function App() {
           >
             Next →
           </button>
-        </div>
+        </footer>
       )}
+      </main>
     </div>
   );
 }
