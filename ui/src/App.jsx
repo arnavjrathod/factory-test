@@ -315,6 +315,14 @@ export default function App() {
 
   return (
     <div className="container">
+      <div className="editor-titlebar" aria-hidden="true">
+        <span className="window-controls">
+          <span className="dot close" />
+          <span className="dot minimize" />
+          <span className="dot maximize" />
+        </span>
+        <span className="editor-title">src/App.jsx</span>
+      </div>
       <header className="app-header">
         <h1>To-Do</h1>
         <span className="health">
