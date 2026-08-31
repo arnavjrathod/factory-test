@@ -1,22 +1,28 @@
 :root {
-  --bg: #f4f5f7;
-  --bg-gradient-start: #eef1f7;
-  --bg-gradient-end: #f8f9fc;
-  --surface: rgba(255, 255, 255, 0.92);
-  --surface-solid: #ffffff;
-  --border: #e2e4e9;
-  --text: #1a1f2c;
-  --text-dim: #5c6370;
-  --accent: #4f6ef7;
-  --accent-dark: #3d57d6;
-  --accent-glow: rgba(79, 110, 247, 0.35);
-  --danger: #e5484d;
-  --danger-glow: rgba(229, 72, 77, 0.35);
-  --radius: 10px;
-  --radius-sm: 6px;
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 8px 24px rgba(20, 30, 60, 0.08);
-  --glow-sm: 0 0 0 1px rgba(255, 255, 255, 0.6) inset, 0 2px 8px rgba(79, 110, 247, 0.12);
+  --bg: #1e1e1e;
+  --bg-gradient-start: #1e1e1e;
+  --bg-gradient-end: #252526;
+  --surface: rgba(37, 37, 38, 0.96);
+  --surface-solid: #252526;
+  --border: #3c3c3c;
+  --text: #d4d4d4;
+  --text-dim: #858585;
+  --accent: #569cd6;
+  --accent-dark: #4e8ecc;
+  --accent-glow: rgba(86, 156, 214, 0.4);
+  --danger: #f44747;
+  --danger-glow: rgba(244, 71, 71, 0.35);
+  --string: #ce9178;
+  --function: #dcdcaa;
+  --type: #4ec9b0;
+  --variable: #9cdcfe;
+  --comment: #6a9955;
+  --radius: 8px;
+  --radius-sm: 4px;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --glow-sm: 0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    0 2px 8px rgba(86, 156, 214, 0.1);
   --glow: 0 0 18px var(--accent-glow);
 }
 
@@ -24,15 +30,24 @@
   box-sizing: border-box;
 }
 
+::selection {
+  background: #264f78;
+  color: #ffffff;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
-  background: linear-gradient(160deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+  font-family: "Fira Code", "JetBrains Mono", "Cascadia Code", "Consolas",
+    "Monaco", "Courier New", monospace;
+  background: linear-gradient(
+    160deg,
+    var(--bg-gradient-start) 0%,
+    var(--bg-gradient-end) 100%
+  );
   background-attachment: fixed;
   color: var(--text);
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 15px;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -51,10 +66,10 @@ header.app-header {
 }
 
 header.app-header h1 {
-  font-size: 32px;
+  font-size: 30px;
   margin: 0;
-  letter-spacing: -0.03em;
-  background: linear-gradient(135deg, var(--accent) 0%, #7b8ffc 100%);
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--comment) 0%, var(--accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -83,7 +98,7 @@ header.app-header .health {
 }
 
 .card:hover {
-  box-shadow: var(--shadow-md), 0 0 20px rgba(79, 110, 247, 0.1);
+  box-shadow: var(--shadow-md), 0 0 20px rgba(86, 156, 214, 0.12);
 }
 
 /* ---- Forms ---- */
@@ -103,6 +118,7 @@ textarea {
   border-radius: var(--radius-sm);
   background: var(--surface-solid);
   color: var(--text);
+  caret-color: var(--accent);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -111,7 +127,18 @@ select:focus,
 textarea:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-glow);
+  box-shadow: 0 0 0 2px var(--accent-glow);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-dim);
+  opacity: 0.7;
+}
+
+select option {
+  background: var(--surface-solid);
+  color: var(--text);
 }
 
 input.grow {
@@ -125,15 +152,19 @@ button {
   padding: 10px 16px;
   border: none;
   border-radius: var(--radius-sm);
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-  color: #fff;
+  background: linear-gradient(
+    135deg,
+    var(--accent) 0%,
+    var(--accent-dark) 100%
+  );
+  color: #1e1e1e;
   cursor: pointer;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 2px 6px var(--accent-glow);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 2px 6px var(--accent-glow);
   transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
 }
 
 button:hover {
-  filter: brightness(1.08);
+  filter: brightness(1.12);
   box-shadow: 0 4px 12px var(--accent-glow), var(--glow);
   transform: translateY(-1px);
 }
@@ -143,7 +174,7 @@ button:active {
 }
 
 button:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
@@ -157,7 +188,7 @@ button.secondary {
 }
 
 button.secondary:hover {
-  background: var(--bg);
+  background: #2d2d30;
   box-shadow: var(--shadow-md);
 }
 
@@ -169,9 +200,9 @@ button.ghost {
 }
 
 button.ghost:hover {
-  background: var(--bg);
+  background: rgba(255, 255, 255, 0.06);
   color: var(--text);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   transform: none;
 }
 
@@ -228,16 +259,23 @@ li.task {
   align-items: flex-start;
   gap: 14px;
   padding: 16px;
-  background: linear-gradient(135deg, var(--surface) 0%, rgba(255, 255, 255, 0.78) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--surface) 0%,
+    rgba(45, 45, 48, 0.78) 100%
+  );
   border: 1px solid var(--border);
+  border-left: 3px solid transparent;
   border-radius: var(--radius);
   margin-bottom: 10px;
   box-shadow: var(--shadow);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    border-left-color 0.15s ease;
 }
 
 li.task:hover {
-  box-shadow: var(--shadow-md), 0 0 16px rgba(79, 110, 247, 0.1);
+  border-left-color: var(--accent);
+  box-shadow: var(--shadow-md), 0 0 16px rgba(86, 156, 214, 0.12);
   transform: translateY(-1px);
 }
 
@@ -258,12 +296,12 @@ li.task .body {
 li.task .title {
   font-weight: 600;
   font-size: 16px;
-  color: var(--text);
+  color: var(--variable);
 }
 
 li.task.done .title {
   text-decoration: line-through;
-  color: var(--text-dim);
+  color: var(--comment);
 }
 
 li.task .desc {
@@ -300,37 +338,37 @@ li.task .actions {
   border: 1px solid var(--border);
   color: var(--text-dim);
   background: var(--bg);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .badge.status-todo {
-  background: #eef1f7;
-  border-color: #cdd3df;
-  color: #3a4150;
+  background: rgba(106, 153, 85, 0.15);
+  border-color: rgba(106, 153, 85, 0.4);
+  color: var(--comment);
 }
 
 .badge.status-in_progress {
-  background: #fff6e5;
-  border-color: #f5c26b;
-  color: #8a5b00;
+  background: rgba(220, 220, 170, 0.15);
+  border-color: rgba(220, 220, 170, 0.4);
+  color: var(--function);
 }
 
 .badge.status-done {
-  background: #e6f7ec;
-  border-color: #7ac78f;
-  color: #176230;
+  background: rgba(78, 201, 176, 0.15);
+  border-color: rgba(78, 201, 176, 0.4);
+  color: var(--type);
 }
 
 .badge.priority-medium {
-  background: #fff8e0;
-  border-color: #f5d76b;
-  color: #7a5d00;
+  background: rgba(204, 167, 0, 0.15);
+  border-color: rgba(204, 167, 0, 0.4);
+  color: #cca700;
 }
 
 .badge.priority-high {
-  background: #ffeaea;
-  border-color: #f19a9a;
-  color: #991b1b;
+  background: rgba(244, 71, 71, 0.15);
+  border-color: rgba(244, 71, 71, 0.4);
+  color: var(--danger);
 }
 
 .badge.due {
@@ -338,10 +376,10 @@ li.task .actions {
 }
 
 .badge.due.overdue {
-  background: #ffeaea;
-  border-color: #f19a9a;
-  color: #991b1b;
-  box-shadow: 0 0 8px rgba(229, 72, 77, 0.15);
+  background: rgba(244, 71, 71, 0.15);
+  border-color: rgba(244, 71, 71, 0.4);
+  color: var(--danger);
+  box-shadow: 0 0 8px rgba(244, 71, 71, 0.15);
 }
 
 /* ---- Empty / errors ---- */
@@ -355,15 +393,20 @@ li.task .actions {
 }
 
 .error {
-  background: linear-gradient(135deg, #fff0f0 0%, #ffe5e5 100%);
-  border: 1px solid #f19a9a;
-  color: #991b1b;
+  background: rgba(244, 71, 71, 0.12);
+  border: 1px solid rgba(244, 71, 71, 0.45);
+  color: #ff6b6b;
   border-radius: var(--radius);
   padding: 12px 16px;
   margin-bottom: 18px;
   font-size: 15px;
   font-weight: 500;
-  box-shadow: 0 0 12px rgba(229, 72, 77, 0.12);
+  box-shadow: 0 0 12px rgba(244, 71, 71, 0.12);
+}
+
+.task-form .error {
+  flex-basis: 100%;
+  margin: 0;
 }
 
 /* ---- Pagination ---- */
@@ -380,7 +423,7 @@ li.task .actions {
 }
 
 .pagination button:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
@@ -420,6 +463,10 @@ li.task .actions {
   color: var(--text-dim);
   margin-left: 8px;
   font-weight: 400;
+}
+
+.categories .empty {
+  padding: 8px 0;
 }
 
 .categories form {

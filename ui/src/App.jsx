@@ -167,7 +167,7 @@ function TaskForm({ initial, categories, onSubmit, onCancel }) {
         </button>
       )}
       {error && (
-        <div className="error" style={{ flexBasis: "100%", margin: 0 }}>
+        <div className="error">
           {error}
         </div>
       )}
@@ -316,9 +316,9 @@ export default function App() {
   return (
     <div className="container">
       <header className="app-header">
-        <h1>To-Do</h1>
+        <h1>{"// To-Do"}</h1>
         <span className="health">
-          {total} task{total === 1 ? "" : "s"}
+          {`/* ${total} task${total === 1 ? "" : "s"} */`}
         </span>
       </header>
 
@@ -396,7 +396,7 @@ export default function App() {
       <div className="card categories">
         <h2>Categories</h2>
         {categories.length === 0 ? (
-          <div className="empty" style={{ padding: "8px 0" }}>
+          <div className="empty">
             No categories yet.
           </div>
         ) : (
