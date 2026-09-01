@@ -1,8 +1,49 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { api } from "./api.js";
 
 const STATUSES = ["todo", "in_progress", "done"];
 const PRIORITIES = ["low", "medium", "high"];
+const THEME_STORAGE_KEY = "theme";
+
+const ThemeContext = createContext(null);
+
+export function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === "undefined") return "light";
+    return localStorage.getItem(THEME_STORAGE_KEY) || "light";
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
+  }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((t) => (t === "light" ? "dark" : "light"));
+  }, []);
+
+  const value = useMemo(
+    () => ({ theme, toggleTheme }),
+    [theme, toggleTheme]
+  );
+
+  return (
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+  );
+}
+
+export function useTheme() {
+  const ctx = useContext(ThemeContext);
+  if (!ctx) throw new Error("useTheme must be used within ThemeProvider");
+  return ctx;
+}
 
 function statusBadge(s) {
   return `badge status-${s}`;
@@ -176,6 +217,7 @@ function TaskForm({ initial, categories, onSubmit, onCancel }) {
 }
 
 export default function App() {
+  const { theme, toggleTheme } = useTheme();
   const [tasks, setTasks] = useState([]);
   const [total, setTotal] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
@@ -317,9 +359,20 @@ export default function App() {
     <div className="container">
       <header className="app-header">
         <h1>To-Do</h1>
-        <span className="health">
-          {total} task{total === 1 ? "" : "s"}
-        </span>
+        <div className="header-actions">
+          <button
+            type="button"
+            className="secondary theme-toggle"
+            onClick={toggleTheme}
+            title={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+            aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+          >
+            {theme === "light" ? "🌙" : "☀️"}
+          </button>
+          <span className="health">
+            {total} task{total === 1 ? "" : "s"}
+          </span>
+        </div>
       </header>
 
       {error && <div className="error">{error}</div>}
