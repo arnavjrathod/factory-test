@@ -1,0 +1,62 @@
+[data-theme="dark"] {
+  --bg: #0f1115;
+  --bg-gradient-start: #151821;
+  --bg-gradient-end: #0d0f13;
+  --surface: rgba(30, 34, 44, 0.92);
+  --surface-solid: #1e222c;
+  --border: #2a2e3a;
+  --text: #e8eaf0;
+  --text-dim: #9aa2b2;
+  --accent: #6b85ff;
+  --accent-dark: #4f6ef7;
+  --accent-glow: rgba(107, 133, 255, 0.35);
+  --danger: #ff6b6b;
+  --danger-glow: rgba(255, 107, 107, 0.35);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --glow-sm: 0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+    0 2px 8px rgba(79, 110, 247, 0.12);
+  --glow: 0 0 18px var(--accent-glow);
+}
+
+[data-theme="dark"] .badge.status-todo {
+  background: #252a36;
+  border-color: #3a4150;
+  color: #c3c8d4;
+}
+
+[data-theme="dark"] .badge.status-in_progress {
+  background: #3d3200;
+  border-color: #6b5700;
+  color: #f5d76b;
+}
+
+[data-theme="dark"] .badge.status-done {
+  background: #0f3d24;
+  border-color: #1d6b3b;
+  color: #7ac78f;
+}
+
+[data-theme="dark"] .badge.priority-medium {
+  background: #3d3200;
+  border-color: #6b5700;
+  color: #f5d76b;
+}
+
+[data-theme="dark"] .badge.priority-high {
+  background: #3d0f0f;
+  border-color: #6b1d1d;
+  color: #ff9f9f;
+}
+
+[data-theme="dark"] .badge.due.overdue {
+  background: #3d0f0f;
+  border-color: #6b1d1d;
+  color: #ff9f9f;
+}
+
+[data-theme="dark"] .error {
+  background: linear-gradient(135deg, #3d0f0f 0%, #2a0a0a 100%);
+  border-color: #6b1d1d;
+  color: #ff9f9f;
+}

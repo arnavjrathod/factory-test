@@ -175,7 +175,26 @@ function TaskForm({ initial, categories, onSubmit, onCancel }) {
   );
 }
 
+function useTheme() {
+  const [theme, setTheme] = useState(() => {
+    if (typeof document === "undefined") return "light";
+    return document.documentElement.getAttribute("data-theme") || "light";
+  });
+
+  const toggleTheme = useCallback(() => {
+    setTheme((prev) => {
+      const next = prev === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+      return next;
+    });
+  }, []);
+
+  return { theme, toggleTheme };
+}
+
 export default function App() {
+  const { theme, toggleTheme } = useTheme();
   const [tasks, setTasks] = useState([]);
   const [total, setTotal] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
@@ -317,9 +336,20 @@ export default function App() {
     <div className="container">
       <header className="app-header">
         <h1>To-Do</h1>
-        <span className="health">
-          {total} task{total === 1 ? "" : "s"}
-        </span>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <button
+            type="button"
+            className="secondary"
+            onClick={toggleTheme}
+            title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+          >
+            {theme === "dark" ? "🌙 Dark" : "☀️ Light"}
+          </button>
+          <span className="health">
+            {total} task{total === 1 ? "" : "s"}
+          </span>
+        </div>
       </header>
 
       {error && <div className="error">{error}</div>}
