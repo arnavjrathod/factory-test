@@ -193,6 +193,22 @@ export default function App() {
   const [editing, setEditing] = useState(null);
   const [newCategory, setNewCategory] = useState("");
 
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === "undefined") return "light";
+    const stored = window.localStorage.getItem("theme");
+    if (stored === "light" || stored === "dark") return stored;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  });
+
+  useEffect(() => {
+    document.body.dataset.theme = theme;
+    window.localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme((t) => (t === "light" ? "dark" : "light"));
+
   const categoryById = useMemo(() => {
     const map = new Map();
     for (const c of categories) map.set(c.id, c);
@@ -317,9 +333,19 @@ export default function App() {
     <div className="container">
       <header className="app-header">
         <h1>To-Do</h1>
-        <span className="health">
-          {total} task{total === 1 ? "" : "s"}
-        </span>
+        <div className="controls">
+          <button
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+            title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+          >
+            {theme === "light" ? "🌙" : "☀️"}
+          </button>
+          <span className="health">
+            {total} task{total === 1 ? "" : "s"}
+          </span>
+        </div>
       </header>
 
       {error && <div className="error">{error}</div>}
